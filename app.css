@@ -9,6 +9,7 @@ html {
 body {
   margin: 0;
   background-color: #191919;
+  color:#ccc;
 }
 
 label,
@@ -29,6 +30,7 @@ textarea {
   width: 100%;
   max-width: 30rem;
   border: 1px solid #ccc;
+  background-color: #575757;
 }
 
 input:focus,
