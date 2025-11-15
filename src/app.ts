@@ -1,3 +1,21 @@
+// Autobind - Method Decorator
+function Autobind(
+  _: any,
+  _2: string,
+  descriptor: PropertyDescriptor
+) {
+  const originalMethod = descriptor.value;
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    get() {
+      const boundFn = originalMethod.bind(this);
+      return boundFn;
+    },
+  };
+  return adjDescriptor;
+}
+
+// ProjectInput class
 class ProjectInput {
   templateElement: HTMLTemplateElement; // el that we want to put
   hostElement: HTMLDivElement; // el where we want to put el
@@ -36,6 +54,8 @@ class ProjectInput {
     this.configure();
     this.attache();
   }
+
+  @Autobind
   private submitHandler(event: Event) {
     event.preventDefault();
     console.log(this.titleInputElement.value);
@@ -43,8 +63,7 @@ class ProjectInput {
 
   // set up an event listener
   private configure() {
-    // calling bind() to preconfigure how submitHandler fn is going to execute
-    this.element.addEventListener('submit', this.submitHandler.bind(this));
+    this.element.addEventListener('submit', this.submitHandler);
   }
 
   // method to insert form (element) in a div (hostElement)
